@@ -12,10 +12,12 @@ import FavoritesContext from './contexts/favoritesContext';
 import { useState } from 'react';
 import SearchContext from './contexts/searchContext';
 import { FavoritesPage } from './pages/FavoritesPage';
+import api from './services/api';
 
 function App() {
   const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("favorites")));
   const [list, setList] = useState([]);
+  //api.loadBaseURL();
 
   return (
     <SearchContext.Provider value={{ list, setList }}>
