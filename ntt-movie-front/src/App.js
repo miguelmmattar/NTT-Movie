@@ -14,7 +14,7 @@ import SearchContext from './contexts/searchContext';
 import { FavoritesPage } from './pages/FavoritesPage';
 
 function App() {
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("favorites")));
   const [list, setList] = useState([]);
 
   return (

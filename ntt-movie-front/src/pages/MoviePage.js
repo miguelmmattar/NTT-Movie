@@ -80,12 +80,20 @@ function Rating({ rating }) {
 
 function Favorite({ film }) {
   const { favorites, setFavorites } = useContext(FavoritesContext);
-  
-  const isFavorite = favorites.find(item => item.imdbID === film.imdbID);
+  if(!favorites) setFavorites([]);
+  const isFavorite = favorites?.find(item => item.imdbID === film.imdbID);
 
   function handleClick() {
-    if(isFavorite) setFavorites(favorites.filter(item => item.imdbID !== film.imdbID));
-    else setFavorites([...favorites, film]);
+    //console.log(favorites);
+    if(isFavorite) {
+      const updatedFavorites = favorites.filter(item => item.imdbID !== film.imdbID);
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      setFavorites(updatedFavorites);
+    } else {
+      const updatedFavorites = [...favorites, film];
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+      setFavorites(updatedFavorites);
+    }
   }
 
   return (

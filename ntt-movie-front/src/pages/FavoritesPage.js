@@ -25,7 +25,7 @@ export function FavoritesPage() {
 function MoviesList({ favorites }) {
   return (
     <ListWrapper>
-      { favorites.length > 0 && (
+      { favorites && favorites.length > 0 && (
         <>
           {favorites.map((movie, index) => (
             <div key={index}>
