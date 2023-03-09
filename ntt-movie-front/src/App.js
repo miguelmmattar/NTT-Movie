@@ -8,18 +8,28 @@ import {
 import { Home } from './pages/Home';
 import { MoviePage } from './pages/MoviePage';
 import { Header } from './components/Header';
-import { Footer } from './components/Footer';
+import FavoritesContext from './contexts/favoritesContext';
+import { useState } from 'react';
+import SearchContext from './contexts/searchContext';
+import { FavoritesPage } from './pages/FavoritesPage';
 
 function App() {
+  const [favorites, setFavorites] = useState([]);
+  const [list, setList] = useState([]);
+
   return (
+    <SearchContext.Provider value={{ list, setList }}>
+    <FavoritesContext.Provider value={{ favorites, setFavorites}}>
     <Router>
       <Header />
-      <Footer />
       <Routes>
         <Route path = "/" element={<Home />} />
-        <Route path = "/movie/:title" element={<MoviePage />} />
+        <Route path = "/movie/:id" element={<MoviePage />} />
+        <Route path = "/favorites" element={<FavoritesPage />} />
       </Routes>
     </Router>
+    </FavoritesContext.Provider>
+    </SearchContext.Provider>
   );
 }
 

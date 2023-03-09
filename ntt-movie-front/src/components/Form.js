@@ -1,15 +1,23 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components"; 
+import api from "../services/api";
 
-
-export default function Form({ movie, setMovie }) {
+export default function Form({ movie, setMovie, setList }) {
+    const location = useLocation();
+    const navigate = useNavigate();
+    
     async function handleSubmit(e) {
         e.preventDefault();
 
         try {
-          //await signInWithEmailAndPassword(movie);
-            
+          const response = await api.getMovies(movie);
+
+          if(response.data.Search) {
+            if(location.pathname !== "/") navigate("/");
+            setList(response.data.Search);
+          }
         } catch {
-          //lançar erro
+          alert("Something went wrong. Your request couldn't be completed!");
           setMovie("");
         }
       }
@@ -20,14 +28,14 @@ export default function Form({ movie, setMovie }) {
 
             <p>You can search from our extensive list of movies by typing a title on the field below. You will get informations such as actors, review and sinpose. Don't forget to add your favorite titles to your list.</p>
 
-            <form onSubmit={handleSubmit} onReset={() => setMovie("")}>
+            <form onSubmit={handleSubmit} onReset={() => setMovie({title: ""})}>
                 <input
                     type="text"
                     id="movie"
                     name="movie"
                     placeholder="Enter a movie title..."
-                    value={movie}
-                    onChange={(e) => setMovie(e.target.value )}
+                    value={movie.title}
+                    onChange={(e) => setMovie({ title: e.target.value })}
                     required
                 />
                 

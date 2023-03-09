@@ -1,9 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { AiOutlineLeft, AiFillHeart } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
+  const navigate = useNavigate();
+
   return (
-    <HeaderWrapper>NTT MOVIE</HeaderWrapper>
+    <HeaderWrapper>
+      <AiOutlineLeft onClick={() => navigate(-1)}/>
+      <h1>NTT MOVIE</h1>
+      <AiFillHeart onClick={() => navigate("/favorites")} />
+    </HeaderWrapper>
   );
 }
 
@@ -16,10 +24,17 @@ const HeaderWrapper = styled.div`
     font-size: 40px;
     font-weight: 700;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1;
+
+    svg {
+      cursor: pointer;
+      margin: 0 20px;
+      width: 30px;
+      height: 30px;
+    }
 `;
